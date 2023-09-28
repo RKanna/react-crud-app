@@ -46,7 +46,16 @@ function App() {
       }
     } else {
       //if there is no title entered and clickHandler function activates(that is user clicks add button without title) then below function will execute
-      toast.error("Title is Required", { duration: 3000 });
+      // if (!title) {
+      //   toast.error("Title is Required", { duration: 3000 });
+      // } else if (!quantity) {
+      //   toast.error("Quantity is Required", { duration: 3000 });
+      // }
+      !title
+        ? toast.error("Title is Required", { duration: 3000 })
+        : !quantity
+        ? toast.error("Quantity is Required", { duration: 3000 })
+        : null;
     }
   };
 
@@ -69,15 +78,15 @@ function App() {
   return (
     <>
       <Toaster />
-      <main className="flex flex-col h-screen w-screen justify-center items-center">
+      <main className="flex flex-col items-center justify-center w-screen h-screen">
         <section className="flex flex-col gap-4">
-          <div className="forOutline w-[25rem] bg-bgclr rounded h-[10rem] flex flex-col justify-center items-center shadow-lg w-full">
-            <h1 className="font-bold text-2xl">Test React Crud App</h1>
+          <div className="forOutline w-[25rem] bg-bgclr rounded h-[10rem] flex flex-col justify-center items-center shadow-lg w-full p-4">
+            <h1 className="text-2xl font-bold text-red-950">React CRUD App</h1>
             <br />
             <div className="flex flex-row justify-between gap-8">
-              <label htmlFor="title" className="font-bold p-2">
+              {/* <label htmlFor="title" className="p-2 font-bold">
                 Title
-              </label>
+              </label> */}
               <input
                 type="text"
                 id="title"
@@ -90,23 +99,23 @@ function App() {
               <input
                 type="number"
                 id="quantity"
-                className="p-2 rounded w-[5rem]"
+                className="p-2 rounded w-[7rem]"
                 value={quantity}
                 placeholder="Quantity"
                 onChange={(e) => setQuantity(e.target.value)}
               />
               {/* <IoIosAddCircle
-                className="text-2xl text-amber-950 cursor-pointer m-2"
+                className="m-2 text-2xl cursor-pointer text-amber-950"
                 onClick={clickHandler}
               /> */}
               {isEditing ? (
                 <FaEdit
-                  className="text-2xl text-amber-950 cursor-pointer m-2"
+                  className="m-2 text-4xl cursor-pointer text-amber-950"
                   onClick={clickHandler}
                 />
               ) : (
                 <IoIosAddCircle
-                  className="text-2xl text-amber-950 cursor-pointer m-2"
+                  className="m-2 text-4xl cursor-pointer text-amber-950"
                   onClick={clickHandler}
                 />
               )}
@@ -118,17 +127,17 @@ function App() {
               {list.length ? (
                 list.map((item) => (
                   <li
-                    className="text-2xl font-bold flex flex-row w-full justify-between items-center"
+                    className="flex flex-row items-center justify-between w-full text-2xl font-bold text-red-950"
                     key={item.id}
                   >
                     <span className="w-[5rem]">{item.title}</span>
                     <span className="w-[5rem]">{item.quantity}</span>
                     <FaEdit
-                      className="cursor-pointer"
+                      className="cursor-pointer text-bgborderLine"
                       onClick={() => updateItem(item.id)}
                     />
                     <BsTrash3Fill
-                      className="cursor-pointer"
+                      className="text-red-600 cursor-pointer"
                       onClick={() => deleteItem(item.id)}
                     />
                   </li>
