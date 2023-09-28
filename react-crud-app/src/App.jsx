@@ -58,9 +58,13 @@ function App() {
 
   const updateItem = (id) => {
     setIsEditing(true);
-    setItemToEdit(list.find((item) => item.id === id));
+    // setItemToEdit(list.find((item) => item.id === id));
+    const itemToUpdate = list.find((item) => item.id === id);
     setTitle(itemToEdit.title);
     setQuantity(itemToEdit.quantity);
+    setItemToEdit(itemToUpdate);
+    setTitle(itemToUpdate.title || "");
+    setQuantity(itemToUpdate.quantity || "");
   };
   return (
     <>
